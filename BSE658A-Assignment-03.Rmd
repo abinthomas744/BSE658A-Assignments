@@ -1,0 +1,46 @@
+---
+title: "BSE658A-Assignment-03"
+author: "Your Name (Roll No.)"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+### Instructions
+
+Please answer the following the questions by either writing the code or text to solve it - correctly answered questions will give you the number of points mentioned at the end of question. Please keep the output of the R code chunk in the final pdf which you will share with us for grading. You don't have to edit anything in this file except the R code chunk or the text *\<\< HERE \>\>* which specify the space to write the answer. :)
+
+If you have any question/query, please feel free to ask it on HelloIITK. The deadline for submission is August 22 (Monday), 2022 11:59 PM IST.
+
+Please use R studio to answer the questions using minimal language. Don't worry about answering the questions perfectly also!
+
+Remember: you can always use R console to try out code which you don't want to include in `.Rmd` or want to share with others, but whatever you write in R console might affect the data handled by the code in `.Rmd` file and vice versa.
+
+### Questions
+
+1.  If you open the R console, the first line in the console shows the version of R you have installed on your computer. Please specify which R version you have by opening R console. (1 point)
+
+Answer: *\<\< HERE \>\>*
+
+2.  There are 'base' packages in R which you don't have to install separately after installing the latest version of R - they are bundled with R (like the furniture or dining table you might get when you rent a new house.) One of these base packages/libraries in R is `datasets`. Type `help(datasets)` to read more about it. View the complete list of datasets in `datasets` and load the dataset `AirPassengers` in your RStudio. Write the code below which you will use to solve question 3 and 4. (1 point)
+
+Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
+
+3.  Mention the source of the dataset `AirPassengers`. (1 point)
+
+Answer: *\<\< HERE \>\>*
+
+4.  How many rows and columns does the dataset `AirPassengers` have? (1 point)
+
+Answer: Number of rows: *\<\< HERE \>\>*, number of columns: *\<\< HERE \>\>*.
+
+5.  There are multiple columns in `AirPassengers`. Can you create a new column `Passengers` by adding all the values in different columns in a given row? The number of rows in the original dataset and the new dataset will be the same. (3 point)
+
+Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
+
+6.  How will you check the number of `NA` values in the dataset `AirPassengers`? (1 point)
+
+Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
+
+7.  You might have used `Tidyverse` package to solve the above questions. Can you create a new column `PercentPassengers` which shows the percentage of passengers who flew in a given month of a given year? The value of hundred percentage denotes the total number of passengers who flew in a given year (which you have already calculated in the column `Passengers`). Make sure the column `PercentPassengers` is the first column in the dataset. (3 point)
+
+Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
