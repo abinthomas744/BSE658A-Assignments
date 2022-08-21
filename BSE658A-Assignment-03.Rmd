@@ -42,6 +42,6 @@ Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>
 
 Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
 
-7.  You might have used `Tidyverse` package to solve the above questions. Can you create a new column `PercentPassengers` which shows the percentage of passengers who flew in a given month of a given year? The value of hundred percentage denotes the total number of passengers who flew in a given year (which you have already calculated in the column `Passengers`). Make sure the column `PercentPassengers` is the first column in the dataset. (3 points)
+7.  You might have used `Tidyverse` package to solve the above questions. Can you replace existing month columns with the percentage of passengers who flew in that month of the given year? The value of hundred percentage for a row or a year denotes the total number of passengers who flew in that particular year (which you have already calculated in the column `Passengers`). (3 points)
 
 Answer: *\<\< Insert R code chunk on the next line. You may delete this line. \>\>*
