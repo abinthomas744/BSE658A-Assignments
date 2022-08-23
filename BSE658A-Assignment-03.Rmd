@@ -64,7 +64,7 @@ Answer:
 sum(is.na(apt1))
 ```
 
-7.  You might have used `Tidyverse` package to solve the above questions. Can you create a new column `PercentPassengers` which shows the percentage of passengers who flew in a given month of a given year? The value of hundred percentage denotes the total number of passengers who flew in a given year (which you have already calculated in the column `Passengers`). Make sure the column `PercentPassengers` is the first column in the dataset. (3 points)
+7.  You might have used `Tidyverse` package to solve the above questions. Can you replace existing month columns with the percentage values? For example, if a total of 700 passengers flew in 1970 and 100 passengers flew in July, 1970, the July column should now have the value of 14.285 (100/700 * 100) instead of 700. You have already calculated the number of passengers corresponding to hundred percentage in the column `Passengers`. (3 points)
 
 Answer:
 
