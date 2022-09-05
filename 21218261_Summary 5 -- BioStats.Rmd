@@ -1,0 +1,126 @@
+---
+title: "BSE658A-Summary-05"
+author: "Abin Thomas (Roll No. 21218261)"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r}
+library(lsr)
+library(tidyverse)
+path <- "D:/Abin/Documents/BSE658A_BioStats/kc_house_data.csv"
+kc_housesales_data <- read.csv(path)
+#kc_housesales_data
+```
+
+```{r}
+hsdtibble <- as_tibble(kc_housesales_data)
+#hsdtibble
+```
+```{r}
+df <- data.frame(hsdtibble$sqft_living)
+
+ggplot(df, aes(x = hsdtibble$sqft_living)) + geom_histogram(bins=12)
+```
+
+```{r}
+library(psych)
+#to find skewness of the data
+skew(hsdtibble$sqft_living)
+```
+```{r}
+#Measures of Central Tendency
+
+mean(hsdtibble$sqft_living)
+median(hsdtibble$sqft_living)
+modeOf(hsdtibble$sqft_living)
+maxFreq(hsdtibble$sqft_living)
+```
+```{r}
+#Measures of variability
+library(dplyr)
+df <- mutate(df, housenumber= 1:length(hsdtibble$sqft_living))
+ggplot(df, aes(y = hsdtibble$sqft_living, x = housenumber)) + geom_point()
+```
+
+```{r}
+range(hsdtibble$sqft_living)
+```
+```{r}
+#iqr
+quantile(x = hsdtibble$sqft_living, probs = c(.25,.75)) #second 
+```
+```{r}
+#variance
+var(hsdtibble$sqft_living)
+sd(hsdtibble$sqft_living)
+```
+
+```{r}
+#let's check if bessel's correction makes a difference
+
+sdn <- function(x) {
+  return(sqrt(mean((x - mean(x))^2)))
+}
+sdn(hsdtibble$sqft_living)
+```
+```{r}
+summary(hsdtibble$sqft_living)
+```
+
+```{r}
+#boxplot?
+ggplot(df, aes(x=hsdtibble$sqft_living, )) + 
+  geom_boxplot()+ coord_flip()
+```
+```{r}
+#let's try the summary of whole dataset
+summary(hsdtibble)
+```
+```{r}
+describe(hsdtibble)
+```
+
+```{r}
+library(dplyr)
+samplesz = c(4,40,400,800,1000,1600,2000)
+sno = c(1:7)
+sz = as_tibble_col(sno,column_name = "Sample Number")
+sz <- mutate(sz,'Sample Size' = samplesz)
+sz
+```
+```{r}
+smean = c()
+for (i in sz$`Sample Size`) {
+  smean1 <- mean((sample_n(hsdtibble,i))$sqft_living)
+  smean = c(smean,smean1)
+}
+```
+
+
+
+```{r}
+Rsampletib <- sz %>% mutate('Sample Mean' = smean )
+Popmean = c(rep(mean(hsdtibble$sqft_living),7))
+Rsampletib <- Rsampletib %>% mutate('Population Mean' = Popmean )
+Rsampletib
+
+```
+
+```{r}
+samsd = c()
+for (i in sz$`Sample Size`) {
+  samsd1 <- sd((sample_n(hsdtibble,i))$sqft_living)
+  samsd = c(samsd,samsd1)
+}
+```
+
+```{r}
+Rsampletib <- Rsampletib %>% mutate('Sample Standard Deviation' = samsd )
+Popsd = c(rep(sd(hsdtibble$sqft_living),7))
+Rsampletib <- Rsampletib %>% mutate('Population Standard Deviation' = Popsd )
+Rsampletib
+```
