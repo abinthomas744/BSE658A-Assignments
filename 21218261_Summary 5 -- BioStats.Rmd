@@ -11,7 +11,7 @@ output:
 ```{r}
 library(lsr)
 library(tidyverse)
-path <- "D:/Abin/Documents/BSE658A_BioStats/kc_house_data.csv"
+path <- "D:/Abin/Documents/BSE658A_BioStats/BSE658A-Assignments/kc_house_data.csv"
 kc_housesales_data <- read.csv(path)
 #kc_housesales_data
 ```
@@ -20,6 +20,8 @@ kc_housesales_data <- read.csv(path)
 hsdtibble <- as_tibble(kc_housesales_data)
 #hsdtibble
 ```
+
+
 ```{r}
 df <- data.frame(hsdtibble$sqft_living)
 
@@ -86,17 +88,29 @@ describe(hsdtibble)
 
 ```{r}
 library(dplyr)
-samplesz = c(4,40,400,800,1000,1600,2000)
-sno = c(1:7)
+samplesz = c(1:2000)
+sno = c(1:length(samplesz))
 sz = as_tibble_col(sno,column_name = "Sample Number")
 sz <- mutate(sz,'Sample Size' = samplesz)
-sz
+#sz
 ```
 ```{r}
+#samples = tibble()
+#for (i in sz$`Sample Size`) {
+#  samplesi <- sample_n(hsdtibble,i)
+#}
+```
+
+
+```{r}
 smean = c()
+samsd = c()
 for (i in sz$`Sample Size`) {
-  smean1 <- mean((sample_n(hsdtibble,i))$sqft_living)
+  sampled = (sample_n(hsdtibble,i))
+  smean1 <- mean(sampled$sqft_living)
   smean = c(smean,smean1)
+  samsd1 <- sd(sampled$sqft_living)
+  samsd = c(samsd,samsd1)
 }
 ```
 
@@ -104,23 +118,38 @@ for (i in sz$`Sample Size`) {
 
 ```{r}
 Rsampletib <- sz %>% mutate('Sample Mean' = smean )
-Popmean = c(rep(mean(hsdtibble$sqft_living),7))
+Popmean = c(rep(mean(hsdtibble$sqft_living),length(sno)))
 Rsampletib <- Rsampletib %>% mutate('Population Mean' = Popmean )
 Rsampletib
 
 ```
 
 ```{r}
-samsd = c()
-for (i in sz$`Sample Size`) {
-  samsd1 <- sd((sample_n(hsdtibble,i))$sqft_living)
-  samsd = c(samsd,samsd1)
-}
+#samsd = c()
+#for (i in sz$`Sample Size`) {
+#  samsd1 <- sd((sample_n(hsdtibble,i))$sqft_living)
+#  samsd = c(samsd,samsd1)
+#}
 ```
 
 ```{r}
 Rsampletib <- Rsampletib %>% mutate('Sample Standard Deviation' = samsd )
-Popsd = c(rep(sd(hsdtibble$sqft_living),7))
+Popsd = c(rep(sd(hsdtibble$sqft_living),length(sno)))
 Rsampletib <- Rsampletib %>% mutate('Population Standard Deviation' = Popsd )
 Rsampletib
+```
+
+
+```{r}
+df1 <- data.frame(Rsampletib$`Sample Mean`)
+df1 <- mutate(df1,`Sample Size`= 1:length(Rsampletib$`Sample Size`))
+ggplot(df1, aes(y = Rsampletib$`Sample Mean`, x = Rsampletib$`Sample Size`)) + geom_point() + geom_hline(yintercept=mean(hsdtibble$sqft_living), linetype="dashed", color = "red",size = 1) + labs(x = "Sample Size(No. of houses randomly selected)",y = "Sample Mean(Average Living Room Size of Sample)") + 
+ geom_text(aes( 1400, 2500, label = "Population Mean(Average Living Room Size of Population)"),colour = "red", size = 4,show.legend = FALSE,check_overlap = TRUE)
+```
+
+```{r}
+df2 <- data.frame(Rsampletib$`Sample Standard Deviation`)
+df2 <- mutate(df2,`Sample Size`= 1:length(Rsampletib$`Sample Size`))
+ggplot(df2, aes(y = Rsampletib$`Sample Standard Deviation`, x = Rsampletib$`Sample Size`)) + geom_point(na.rm = TRUE) + geom_hline(yintercept=sd(hsdtibble$sqft_living), linetype="dashed", color = "red",size = 1) + labs(x = "Sample Size(No. of houses randomly selected)",y = "Sample Standard Deviation") + 
+ geom_text(aes( 1700, 1200, label = "Population Standard Deviation"),colour = "red", size = 4,show.legend = FALSE,check_overlap = TRUE)
 ```
